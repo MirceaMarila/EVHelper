@@ -7,6 +7,7 @@ public class Information {
     private String Lat;
     private String Long;
     private String DetaliiStatieFormatate;
+	int test;
 
     public Information() {
     }
