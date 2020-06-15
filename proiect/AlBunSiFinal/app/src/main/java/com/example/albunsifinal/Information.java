@@ -10,7 +10,7 @@ public class Information {
 
     public Information() {
     }
-
+//comm
     public Information(String name, String address, String lat, String aLong, String detaliiStatieFormatate) {
         Name = name;
         Address = address;
