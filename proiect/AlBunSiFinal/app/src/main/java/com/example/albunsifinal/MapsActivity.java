@@ -104,66 +104,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringnume="Name";
-                String stringadresa="Address";
-                String stringcN="Lat";
-                String stringcE="Long";
-                String stringDetaliiStatieFormatate="DetaliiStatieFormatate";
+                TestPins t1=new TestPins();
+                t1.start();
 
-                HashMap<String, Object> map=new HashMap<>();
-                map.put(stringnume,"random name");
-                map.put(stringadresa,"random address");
-
-                //generez coordonate random
-                Random r = new Random();
-                int rlong = r.nextInt(180) -90;
-                Random r2=new Random();
-                int rlat=r2.nextInt(360)-180;
-
-                String dlong=String.valueOf(rlong);
-                String dlat=String.valueOf(rlat);
-
-                map.put(stringcN,dlat);
-                map.put(stringcE,dlong);
-                map.put(stringDetaliiStatieFormatate,"random detalii");
-
-                FirebaseDatabase.getInstance().getReference().child("Statii").push().updateChildren(map);
-
-                //Toast.makeText(AddtoDB.this,"ADDED!",Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(MapsActivity.this, ViewDB.class));
-                finish();
-                startActivity(getIntent());
-
-                //w8 10 sec
-               // try {
-              //      Thread.sleep(10000);
-             //   } catch (InterruptedException e) {
-              //      e.printStackTrace();
-              //  }
-                //sleep(10000);
-                for(int mri=0;mri<2;mri++)
-                    for(int mrj=0;mrj<1000;mrj++)
-                        for(int mrk=0;mrk<1000;mrk++)
-                            for(int mrl=0;mrl<1000;mrl++)
-                            ;
-
-                //delete random pins
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                Query applesQuery = ref.child("Statii").orderByChild("Name").equalTo("random name");
-
-                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                            appleSnapshot.getRef().removeValue();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.e("tag","onCancelled", databaseError.toException());
-                    }
-                });
+                sleep(1000);
 
                 finish();
                 startActivity(getIntent());
