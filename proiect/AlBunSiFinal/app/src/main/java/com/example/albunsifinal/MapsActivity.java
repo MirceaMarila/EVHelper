@@ -16,6 +16,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
@@ -131,6 +133,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //startActivity(new Intent(MapsActivity.this, ViewDB.class));
                 finish();
                 startActivity(getIntent());
+
+                //w8 10 sec
+               // try {
+              //      Thread.sleep(10000);
+             //   } catch (InterruptedException e) {
+              //      e.printStackTrace();
+              //  }
+                //sleep(10000);
+                for(int mri=0;mri<2;mri++)
+                    for(int mrj=0;mrj<1000;mrj++)
+                        for(int mrk=0;mrk<1000;mrk++)
+                            for(int mrl=0;mrl<1000;mrl++)
+                            ;
+
+                //delete random pins
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                Query applesQuery = ref.child("Statii").orderByChild("Name").equalTo("random name");
+
+                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                            appleSnapshot.getRef().removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("tag","onCancelled", databaseError.toException());
+                    }
+                });
+
+                finish();
+                startActivity(getIntent());
+
             }
         });
 
@@ -300,5 +337,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 }
 
+    public static void sleep(int amt) // In milliseconds
+    {
+        long a = System.currentTimeMillis();
+        long b = System.currentTimeMillis();
+        while ((b - a) <= amt)
+        {
+            b = System.currentTimeMillis();
+        }
+    }
 
 }
