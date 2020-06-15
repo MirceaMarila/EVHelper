@@ -158,7 +158,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Log.e("tag","onCancelled", databaseError.toException());
                     }
                 });
-                
+
             }
 
 

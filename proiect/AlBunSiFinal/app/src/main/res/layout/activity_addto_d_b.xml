@@ -38,7 +38,7 @@
         android:layout_marginBottom="36dp"
         android:text="ADD TO DATABASE"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/test"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -107,11 +107,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ce mufe sunt disponibile?"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/wall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.623" />
+        app:layout_constraintTop_toBottomOf="@+id/nrlocuriparcare" />
 
     <TextView
         android:id="@+id/intrebareOutputText"
@@ -166,5 +165,15 @@
         android:text="Supercharger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="36dp"
+        android:text="TEST"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
