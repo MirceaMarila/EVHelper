@@ -48,9 +48,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import static java.lang.Double.parseDouble;
 
@@ -63,6 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button addtodb;
     private Button viewdb;
     private Button back;
+    private Button test;
     public double coordN=0;
     public double coordE=0;
     public String CoordN;
@@ -92,6 +95,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         addtodb=findViewById(R.id.addtodb);
         viewdb=findViewById(R.id.viewdb);
         back=findViewById(R.id.back);
+        test=findViewById(R.id.test);
+
+
+        //butonu de teste automate
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String stringnume="Name";
+                String stringadresa="Address";
+                String stringcN="Lat";
+                String stringcE="Long";
+                String stringDetaliiStatieFormatate="DetaliiStatieFormatate";
+
+                HashMap<String, Object> map=new HashMap<>();
+                map.put(stringnume,"random name");
+                map.put(stringadresa,"random address");
+
+                //generez coordonate random
+                Random r = new Random();
+                int rlong = r.nextInt(180) -90;
+                Random r2=new Random();
+                int rlat=r2.nextInt(360)-180;
+
+                String dlong=String.valueOf(rlong);
+                String dlat=String.valueOf(rlat);
+
+                map.put(stringcN,dlat);
+                map.put(stringcE,dlong);
+                map.put(stringDetaliiStatieFormatate,"random detalii");
+
+                FirebaseDatabase.getInstance().getReference().child("Statii").push().updateChildren(map);
+
+                //Toast.makeText(AddtoDB.this,"ADDED!",Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(MapsActivity.this, ViewDB.class));
+                finish();
+                startActivity(getIntent());
+            }
+        });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
