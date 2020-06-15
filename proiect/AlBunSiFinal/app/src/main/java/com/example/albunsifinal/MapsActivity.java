@@ -104,15 +104,66 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestPins t1=new TestPins();
-                t1.start();
 
-                sleep(1000);
+                String stringnume="Name";
+                String stringadresa="Address";
+                String stringcN="Lat";
+                String stringcE="Long";
+                String stringDetaliiStatieFormatate="DetaliiStatieFormatate";
 
-                finish();
-                startActivity(getIntent());
+                HashMap<String, Object> map=new HashMap<>();
+                map.put(stringnume,"random name");
+                map.put(stringadresa,"random address");
 
+                int cnt=10;
+                for(int i=0;i<cnt;i++) {
+                    //generez coordonate random
+                    Random r = new Random();
+                    int rlong = r.nextInt(180) - 90;
+                    Random r2 = new Random();
+                    int rlat = r2.nextInt(360) - 180;
+
+                    String dlong = String.valueOf(rlong);
+                    String dlat = String.valueOf(rlat);
+
+                    map.put(stringcN, dlat);
+                    map.put(stringcE, dlong);
+                    map.put(stringDetaliiStatieFormatate, "random detalii");
+
+                    FirebaseDatabase.getInstance().getReference().child("Statii").push().updateChildren(map);
+                }
+
+                //Toast.makeText(MapsActivity.this,"10 pins added!",Toast.LENGTH_SHORT).show();
+
+
+
+                int cnt2=0;
+                //delete random pins
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                Query applesQuery = ref.child("Statii").orderByChild("Name").equalTo("random name");
+
+                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.getChildrenCount()==10)
+                            Toast.makeText(MapsActivity.this,"10 pins added to DB and then removed successfully!",Toast.LENGTH_SHORT).show();
+                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                            appleSnapshot.getRef().removeValue();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("tag","onCancelled", databaseError.toException());
+                    }
+                });
+                
             }
+
+
+
+
         });
 
         back.setOnClickListener(new View.OnClickListener() {
